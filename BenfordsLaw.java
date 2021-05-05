@@ -12,14 +12,16 @@ class BenfordsLaw {
 
     }
     public static void readFile(String fileName) {
-        fileName = "sales.csv";
         File file = new File(fileName);
+        String line = "";
+        int lineCount = 0;
 
         try {
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
-                String line = scan.nextLine();
+                line = scan.nextLine();
                 System.out.println(line);
+                lineCount++;
             }
             scan.close();
         } catch (FileNotFoundException e) {
