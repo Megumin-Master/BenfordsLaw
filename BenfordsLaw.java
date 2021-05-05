@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-package BenfordsLaw;
-
-public class BenfordsLaw {
-    
-}
-=======
 /*
  * Date: May 5, 2021
  * Name: David Han, Benjamin Kim
@@ -20,4 +13,3 @@ class BenfordsLaw {
         
     }
 }
->>>>>>> 5e5f2441cc69d6505cb82adeea647368d31e9af3
