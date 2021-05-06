@@ -11,7 +11,7 @@ class BenfordsLaw {
     public static void main(String[] args) {
         firstNum("sales.csv");
     }
-    public static int readFile(String fileName) {
+    public static int dataNum(String fileName) {
         File file = new File(fileName);
         String line = "";
         int lineCount = 0;
@@ -20,8 +20,10 @@ class BenfordsLaw {
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
                 line = scan.nextLine();
+                if (Character.isDigit(line.charAt(5))) {
                 //System.out.println(line);
                 lineCount++;
+                }
             }
             scan.close();
             return lineCount;
@@ -32,23 +34,29 @@ class BenfordsLaw {
         return 0;
     }
     
-    public static void firstNum(String fileName) {
+    public static int[] firstNum(String fileName) {
         File file = new File(fileName);
-        int lineCount = readFile(fileName);
+        int lineCount = dataNum(fileName);
         int[] firstNum = new int[lineCount];
         String line = "";
+        char first = ' ';
     
         try {
             Scanner scan = new Scanner(file);
-            for(int i = 0; i < lineCount; i++) {
+            for(int i = 0; i <= lineCount; i++) {
                 line = scan.nextLine();
-                char first = line.charAt(5);
+                if (Character.isDigit(line.charAt(5)) == false) {
+                    line = scan.nextLine();
+                }
+                first = line.charAt(5);
                 int num = Character.getNumericValue(first);
                 firstNum[i] = num;
-                System.out.println(firstNum[i]);
+                //System.out.println(firstNum[i]);
             }
             scan.close();
         } catch (FileNotFoundException e) {
+            System.out.println("An error has occured");
         }
+        return firstNum;
     }
 }
