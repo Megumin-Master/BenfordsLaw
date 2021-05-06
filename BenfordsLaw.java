@@ -21,7 +21,6 @@ class BenfordsLaw {
                 String line = scan.nextLine();
                 System.out.println(line);
             }
-
         } catch (FileNotFoundException e) {
         }
     }
