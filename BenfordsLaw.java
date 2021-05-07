@@ -19,4 +19,8 @@ class BenfordsLaw {
     public static float percentage(){
         
     }
+
+    public static void createFile(){
+        
+    }
 }
