@@ -13,52 +13,63 @@ class BenfordsLaw {
         File file = new File(fileName);
         firstNum(file);
     }
+    /*
+     * Author - Benjamin Kim
+     * Description - Goes through the csv file and counts the lines that have a data point
+     * 
+     * @param - file
+     * @return - Amount of lines with data points
+     */
     public static int dataNum(File file) {
-        String line = "";
-        int lineCount = 0;
-       
-        try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
-                line = scan.nextLine();
-                if (Character.isDigit(line.charAt(4))) {
-                //System.out.println(line);
-                lineCount++;
+        int lineCount = 0;  // Start line count at 0
+
+        try {   // Try catch
+            Scanner scan = new Scanner(file);   // Scans file that was specified
+            while(scan.hasNextLine()) { // While loop runs until there are no more lines to read
+                String line = scan.nextLine();  // Line read is stored as a string
+                if (Character.isDigit(line.charAt(4))) {    // Sees if the 4th character in the line is a integer
+                lineCount++;    // If it is an integer, it counts that line
                 }
             }
-            return lineCount;
-        } catch (FileNotFoundException e) {
-            System.out.println("An error has occured");
+            return lineCount;   // Returns the line count
+        } catch (FileNotFoundException e) { // If error occurs
+            System.out.println("An error has occured"); // Print that error has occured
         }
-        return 0;
-        //System.out.println(lineCount);
+        return 0;   // In case there is no lineCount return and to get rid of errors
     }
     
+    /*
+     * Author - Benjamin Kim
+     * Description - Goes through the csv file and stores the 4th character of each line in an integer array, 
+     * since the 4th character is the first digit of the number in each line. 
+     * 
+     * @param - file
+     * @return - int array
+     */
     public static int[] firstNum(File file) {
-        int lineCount = dataNum(file);
-        int[] firstNum = new int[lineCount];
-        String line = "";
-        char first = ' ';
+        int lineCount = dataNum(file);  // Storing the return of dataNum method as an integer
+        int[] firstNum = new int[lineCount];    // Making an int array with an index the same as the lineCount
+        String line = "";   // Blank string so it can be used anywhere in method 
     
-        try {
-            Scanner scan = new Scanner(file);
-            for(int i = 0; i < lineCount; i++) {
-                if (scan.hasNextLine()) {
-                    line = scan.nextLine();
+        try {   // Try catch
+            Scanner scan = new Scanner(file);   // Scans file that was specified
+            for(int i = 0; i < lineCount; i++) {    // For loop that runs as many times as line count
+                if (scan.hasNextLine()) {   // When there is a next line
+                    line = scan.nextLine(); // The line is stored in the string "line"
                 }
-                if (Character.isDigit(line.charAt(4)) == false) {
-                    if (scan.hasNextLine()) {
-                        line = scan.nextLine();
+                if (Character.isDigit(line.charAt(4)) == false) {   // If the 4th character in the line is not an integer
+                    if (scan.hasNextLine()) {   // And there is a line after
+                        line = scan.nextLine(); // The program skips the line with no integer and scans the next line instead
                     }
                 }
-                first = line.charAt(4);
-                int num = Character.getNumericValue(first);
-                firstNum[i] = num;
+                char first = line.charAt(4);    // The 4th character is stored in a char variable
+                int num = Character.getNumericValue(first); // The character is then converted to an integer
+                firstNum[i] = num;  // That integer is stored in the int array at the index number equal to the times the for loop ran
                 System.out.println(firstNum[i]);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("An error has occured");
+        } catch (FileNotFoundException e) { // If error occurs
+            System.out.println("An error has occured"); // Prints that the error has occured
         }
-        return firstNum;
+        return firstNum;    // Returns the int array with all the values stored
     }
 }
