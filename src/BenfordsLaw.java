@@ -11,13 +11,15 @@ import java.io.*;
 class BenfordsLaw {
     public static void main(String[] args) {
         Scanner user = new Scanner(System.in);
-        firstNum(user);
+        File file = name(user);
+        firstNum(file);
         user.close();
     }
-    public static String name(Scanner user) {
+    public static File name(Scanner user) {
         System.out.println("Input file name");
         String fileName = user.nextLine();
-        return fileName;
+        File file = new File(fileName);
+        return file;
     }
     /*
      * Author - Benjamin Kim
@@ -26,12 +28,10 @@ class BenfordsLaw {
      * @param - file
      * @return - Amount of lines with data points
      */
-    public static int dataNum(Scanner user) {
+    public static int dataNum(File file) {
         int lineCount = 0;  // Start line count at 0
-        String fileName = name(user);
 
         try {   // Try catch
-            File file = new File(fileName);
             Scanner scan = new Scanner(file);   // Scans file that was specified
             while(scan.hasNextLine()) { // While loop runs until there are no more lines to read
                 String line = scan.nextLine();  // Line read is stored as a string
@@ -54,14 +54,12 @@ class BenfordsLaw {
      * @param - file
      * @return - int array
      */
-    public static int[] firstNum(Scanner user) {
-        int lineCount = dataNum(user);  // Storing the return of dataNum method as an integer
+    public static int[] firstNum(File file) {
+        int lineCount = dataNum(file);  // Storing the return of dataNum method as an integer
         int[] firstNum = new int[lineCount];    // Making an int array with an index the same as the lineCount
         String line = "";   // Blank string so it can be used anywhere in method 
-        String fileName = name(user);
     
         try {   // Try catch
-            File file = new File(fileName);
             Scanner scan = new Scanner(file);   // Scans file that was specified
             for(int i = 0; i < lineCount; i++) {    // For loop that runs as many times as line count
                 if (scan.hasNextLine()) {   // When there is a next line
