@@ -7,9 +7,57 @@
 import java.util.*;
 import java.io.*;
 
-class BenfordsLaw {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
+
+public class BenfordsLaw extends Application {
+    final static String one = "1";
+    final static String two = "2";
+    final static String three = "3";
+    final static String four = "4";
+    final static String five = "5";
+    final static String six = "6";
+    final static String seven = "7";
+    final static String eight = "8";
+    final static String nine = "9";
+
+    @Override public void start(Stage stage) {
+
+        //System.out.println("Hello World");
+
+        stage.setTitle("Bar Chart Sample");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> bc = 
+            new BarChart<String,Number>(xAxis,yAxis);
+        bc.setTitle("Number Percentages");
+        xAxis.setLabel("Number");
+        yAxis.setLabel("Percentage");
+ 
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Set 1");       
+        series1.getData().add(new XYChart.Data(one, 35.0));
+        series1.getData().add(new XYChart.Data(two, 33.4));
+        series1.getData().add(new XYChart.Data(three, 31.8));
+        series1.getData().add(new XYChart.Data(four, 30.9));
+        series1.getData().add(new XYChart.Data(five, 30.8));
+        series1.getData().add(new XYChart.Data(six, 29.7));
+        series1.getData().add(new XYChart.Data(seven, 15.6));
+        series1.getData().add(new XYChart.Data(eight, 14.5));
+        series1.getData().add(new XYChart.Data(nine, 8.7));
+        
+        Scene scene  = new Scene(bc,800,600);
+        bc.getData().addAll(series1);
+        stage.setScene(scene);
+        stage.show();
+    }
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        launch(args);
     }
     
     /**
@@ -87,17 +135,24 @@ class BenfordsLaw {
     }
 
     /**
-     * 
-     * @param array
+     * Using the percentage array, create a new csv file where the percentages of the numbers are listed.
+     * No return value as the purpose of the method is to create a file, not return a value
+     * back into the main code.
+     * @param array The percentage array from the previous method
      */
     public static void createFile(float[] array){
+        //String for the name of the file that's going to be created.
         String newFileName = "results.csv";
 
+        //Create a file variable using the created file name
         try{
             File newFile = new File(newFileName);
 
+            //If the conditions to create a file are met(no other files of the same name are present)
             if(newFile.createNewFile()){
+                //Create new instance of PrintWriter to write into the new file
                 PrintWriter csvWriter = new PrintWriter(newFile);
+                //For each number, print the percentage into the file
                 for(int i = 0; i < 9; i++){
                     csvWriter.append((i+1) + ": " + array[i] + "%\n");
                 }

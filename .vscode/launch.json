@@ -6,17 +6,18 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch BenfordsLaw",
+            "name": "Launch Current File",
             "request": "launch",
-            "mainClass": "BenfordsLaw",
-            "projectName": "BenfordsLaw_772803f9"
+            "mainClass": "${file}"
         },
         {
             "type": "java",
-            "name": "Launch Current File",
+            "name": "Launch BenfordsLaw",
             "request": "launch",
-            "vmArgs": "--module-path /Users/user/Downloads/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml", 
-            "mainClass": "${file}"
-        }
+            "vmArgs": "--module-path D:/Downloads/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "BenfordsLaw",
+            "projectName": "BenfordsLaw_772803f9"
+        },
+        
     ]
 }
