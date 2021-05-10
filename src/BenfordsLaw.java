@@ -15,6 +15,13 @@ class BenfordsLaw {
         firstNum(file);
         user.close();
     }
+    /*
+     * Author - Benjamin Kim
+     * Description - Asks the user to input the file name of the file they want to analyze. In this case, sales.csv
+     * 
+     * @param - Scanner user
+     * @return - The user input as a file
+     */
     public static File name(Scanner user) {
         System.out.println("Input file name");
         String fileName = user.nextLine();
@@ -73,7 +80,7 @@ class BenfordsLaw {
                 char first = line.charAt(4);    // The 4th character is stored in a char variable
                 int num = Character.getNumericValue(first); // The character is then converted to an integer
                 firstNum[i] = num;  // That integer is stored in the int array at the index number equal to the times the for loop ran
-                System.out.println(firstNum[i]);
+                //System.out.println(firstNum[i]);
             }
         } catch (FileNotFoundException e) { // If error occurs
             System.out.println("An error has occured"); // Prints that the error has occured
