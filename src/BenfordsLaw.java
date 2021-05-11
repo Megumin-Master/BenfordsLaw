@@ -4,9 +4,12 @@
  * Teacher: Mr. Ho
  * Description: BenfordsLaw Assignment
  */
+
+ //Importing necessary packages for reading and printing into files
 import java.util.*;
 import java.io.*;
 
+//Importing necessary packages for javafx, the graph
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -16,30 +19,31 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 public class BenfordsLaw extends Application {
-    final static String one = "1";
-    final static String two = "2";
-    final static String three = "3";
-    final static String four = "4";
-    final static String five = "5";
-    final static String six = "6";
-    final static String seven = "7";
-    final static String eight = "8";
-    final static String nine = "9";
 
+    //An override in order to use specific methods from the packages installed. 
+    //Look at settings.json and launch.json for the selection of modules/packages used.
     @Override public void start(Stage stage) {
 
         Scanner user = new Scanner(System.in);
         File file = name(user);
         int[] numbers = firstNum(file);
 
-        int[] amounts = sortArray(numbers);
+        //Using the amounts, count how many of each number there are
+        int[] amounts = count(numbers);
 
+        //Find the percentages of each number
         double[] percentages = percentage(amounts);
 
+        //Create the file using the data from percentages
         createFile(percentages);
 
         user.close();
 
+        //The following below in the Override is used with the help of the official documentation
+        //and various videos online. Without the help we received, we wouldn't be able to learn how to
+        //set up the graph and modules required to create the graph.
+        //Creating the variables and data for the data of the graph
+        //Ex: Title, axis, etc
         stage.setTitle("Bar Chart Sample");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -49,23 +53,27 @@ public class BenfordsLaw extends Application {
         xAxis.setLabel("Number");
         yAxis.setLabel("Percentage");
  
+        //Creates the data for the first and only set of data, the percentages.
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Set 1");       
-        series1.getData().add(new XYChart.Data(one, percentages[0]));
-        series1.getData().add(new XYChart.Data(two, percentages[1]));
-        series1.getData().add(new XYChart.Data(three, percentages[2]));
-        series1.getData().add(new XYChart.Data(four, percentages[3]));
-        series1.getData().add(new XYChart.Data(five, percentages[4]));
-        series1.getData().add(new XYChart.Data(six, percentages[5]));
-        series1.getData().add(new XYChart.Data(seven, percentages[6]));
-        series1.getData().add(new XYChart.Data(eight, percentages[7]));
-        series1.getData().add(new XYChart.Data(nine, percentages[8]));
+        series1.getData().add(new XYChart.Data("1", percentages[0]));
+        series1.getData().add(new XYChart.Data("2", percentages[1]));
+        series1.getData().add(new XYChart.Data("3", percentages[2]));
+        series1.getData().add(new XYChart.Data("4", percentages[3]));
+        series1.getData().add(new XYChart.Data("5", percentages[4]));
+        series1.getData().add(new XYChart.Data("6", percentages[5]));
+        series1.getData().add(new XYChart.Data("7", percentages[6]));
+        series1.getData().add(new XYChart.Data("8", percentages[7]));
+        series1.getData().add(new XYChart.Data("9", percentages[8]));
         
+        //Creates a window to display the graph on.
         Scene scene  = new Scene(bc,800,600);
         bc.getData().addAll(series1);
         stage.setScene(scene);
         stage.show();
     }
+
+    //The main class that will run. It will launch the Override
     public static void main(String[] args) {
         launch(args);
     }
@@ -145,15 +153,13 @@ public class BenfordsLaw extends Application {
     
     /**
      * Author: David Han
-     * This method is to sort the array of the first digits in ascending order using the bubble sort method.
-     * Because it's only first digits, a lot of the numbers will repeat, but that is what we're looking for.
-     * This is mainly to group up the similar digits of the array (1-9)
+     * This method is to count the total number of the first digits.
+     * Ex: There are 200 ones, 90 twos, etc
      * @param array The array of the first digits
-     * @return the sorted array
+     * @return the total amount of each digit in an integer array
      */
-    public static int[] sortArray(int[] array){
-        //for each comparison, compare the current item on the array with the next item
-        //Ex: item 0 and item 1, then item 1 and item 2
+    public static int[] count(int[] array){
+        //Initialize variables for each digit.
         int count1 = 0;
         int count2 = 0;
         int count3 = 0;
@@ -163,8 +169,9 @@ public class BenfordsLaw extends Application {
         int count7 = 0;
         int count8 = 0;
         int count9 = 0;
-        for(int i = 0; i < (array.length - 1); i++){
-            //Assigns variables to the current item and the next item
+        //For each item in the array, check which number it is.(1-9)
+        //Increase that number count by 1.
+        for(int i = 0; i < (array.length); i++){
             if(array[i] == 1){
                 count1 ++;
             }
@@ -193,37 +200,41 @@ public class BenfordsLaw extends Application {
                 count9 ++;
             }
         }
+
+        //Assign the counter amount into the array
         int[] amounts = {count1, count2, count3, count4, count5, count6, count7, count8, count9};
 
-        //If there is no need to sort, then return the final array.
-        //Goes through all the previous versions of sortArray, returning the final array
+        //return the array
         return(amounts);
     }
 
     /**
      * Author: David Han
-     * Using the sorted/grouped array, count how many of each number(1-9) there are.
-     * Find the percentage of that number based on the total amount of numbers.(rounded to the tenth).
+     * Using the counted array, find the percentage of that number based on the total amount of numbers.
+     * (rounded to the tenth)
      * Put that percentage into the array that will be returned.
-     * @param array The sorted array
+     * @param array The counted array
      * @return An array of the percentage of each number
      */
     public static double[] percentage(int[] array){
 
-        //The total number of items in the array. Used for finding the percentage.
+        //The total sum of all the items in the array. Used for finding the percentage.
         double total = 0;
-
         for(int i = 0; i < array.length; i++){
             total += array[i];
         }
+
         //The array where all the percentages will be stored
         double[] percentage = new double[9];
 
-        //For each item in the array, check to see if the item is the same as the comparison(num)
+        //For each item in the array, find the percentage and insert into the percentage array
         for(int i = 0; i < array.length; i++){
             percentage[i] = Math.round((array[i] / total)*1000.0)/10.0;
         }
-
+        
+        //Checking the first percentage to see the likelihood of fraud.
+        //If the percentage is between 29 and 32, then fraud most likely didn't occured.
+        //If not, there is a possibility of fraud.
         if(percentage[0] >= 29 && percentage[0] <= 32){
             System.out.println("Fraud likely did not occur.");
         }
@@ -258,6 +269,7 @@ public class BenfordsLaw extends Application {
                 for(int i = 0; i < 9; i++){
                     csvWriter.append((i+1) + ": " + array[i] + "%\n");
                 }
+                //Close the PrintWriter since we don't need it anymore.
                 csvWriter.close();
             }
         }
