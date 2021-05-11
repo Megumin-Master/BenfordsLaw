@@ -24,9 +24,9 @@ public class BenfordsLaw extends Application {
     //Look at settings.json and launch.json for the selection of modules/packages used.
     @Override public void start(Stage stage) {
 
-        Scanner user = new Scanner(System.in);
-        File file = name(user);
-        int[] numbers = firstNum(file);
+        Scanner user = new Scanner(System.in);  // Call the scanner class to use
+        File file = name(user); // Calling the name method and storing it as a File variable
+        int[] numbers = firstNum(file); // Calling the firstNum method and storing the return value in an integer array
 
         //Using the amounts, count how many of each number there are
         int[] amounts = count(numbers);
