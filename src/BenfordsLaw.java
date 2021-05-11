@@ -257,22 +257,19 @@ public class BenfordsLaw extends Application {
     public static void createFile(double[] array){
         //String for the name of the file that's going to be created.
         String newFileName = "results.csv";
- 
+
         //Create a file variable using the created file name
         try{
             File newFile = new File(newFileName);
- 
-            //If the conditions to create a file are met(no other files of the same name are present)
-            if(newFile.createNewFile()){
-                //Create new instance of PrintWriter to write into the new file
-                PrintWriter csvWriter = new PrintWriter(newFile);
-                //For each number, print the percentage into the file
-                for(int i = 0; i < 9; i++){
-                    csvWriter.append((i+1) + ": " + array[i] + "%\n");
-                }
-                //Close the PrintWriter since we don't need it anymore.
-                csvWriter.close();
+
+            //Create new instance of PrintWriter to write into the new file
+            FileWriter csvWriter = new FileWriter(newFile, false);
+            //For each number, print the percentage into the file
+            for(int i = 0; i < 9; i++){
+                csvWriter.write((i+1) + ": " + array[i] + "%\n");
             }
+            //Close the PrintWriter since we don't need it anymore.
+            csvWriter.close();
         }
         catch(FileNotFoundException e){
             System.out.println("File not found");
